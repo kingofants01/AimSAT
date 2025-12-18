@@ -9,6 +9,10 @@ import { RecommendedActionCard } from "@/components/RecommendedActionCard";
 import { UpcomingMilestonesCard } from "@/components/UpcomingMilestonesCard";
 import { SectionBreakdownCard } from "@/components/SectionBreakdownCard";
 
+export const metadata = {
+  title: "Dashboard | AimSAT",
+};
+
 export default async function DashboardPage() {
   const data = await getDashboardData();
 
