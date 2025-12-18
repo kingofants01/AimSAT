@@ -4,38 +4,28 @@ type Props = {
   recommendedAction: DashboardData["recommendedAction"];
 };
 
-export function RecommendedActionCard({ recommendedAction }: Props) {
-  const priorityTone =
-    recommendedAction.priority === "high"
-      ? "pillHigh"
-      : recommendedAction.priority === "medium"
-      ? "pillMed"
-      : "pillLow";
+function toTitle(s: string) {
+  return s.length ? s[0].toUpperCase() + s.slice(1) : s;
+}
 
+export function RecommendedActionCard({ recommendedAction }: Props) {
   return (
-    <section className="card cardFill">
+    <section className="card">
       <h2 className="cardTitle">Recommended next action</h2>
 
-      <div className="actionTitle">{recommendedAction.title}</div>
+      <div className="cardHeadline">{recommendedAction.title}</div>
 
-      <p className="actionDesc">{recommendedAction.description}</p>
+      <p className="muted" style={{ marginTop: 8 }}>
+        {recommendedAction.description}
+      </p>
 
-      <div className="pillRow">
-        <span className="pill pillStrong">
-          {recommendedAction.actionType}
-        </span>
-
-        <span className="pill">
-          {recommendedAction.estimatedTimeMinutes} min
-        </span>
-
-        <span className={`pill ${priorityTone}`}>
-          {recommendedAction.priority.charAt(0).toUpperCase() + recommendedAction.priority.slice(1)} priority
-        </span>
+      <div className="pillRow" style={{ marginTop: 14 }}>
+        <span className="pill pillBlue">{recommendedAction.actionType}</span>
+        <span className="pill">{recommendedAction.estimatedTimeMinutes} min</span>
+        <span className="pill pillWarn">{toTitle(recommendedAction.priority)} priority</span>
       </div>
 
-      {/* Footer pinned to bottom */}
-      <div className="cardFooter">
+      <div style={{ marginTop: 18 }}>
         <button className="btn btnPrimary" type="button">
           Start
         </button>
@@ -43,4 +33,5 @@ export function RecommendedActionCard({ recommendedAction }: Props) {
     </section>
   );
 }
+
 

@@ -95,25 +95,25 @@ header {
 /* 4) Grid */
 .grid2 {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+
+  /* ✅ this fixes the tall empty card */
+  align-items: start;
 }
+
 
 @media (min-width: 900px) {
   .grid2 {
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-    justify-items: stretch; /* critical */
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    align-items: start; /* KEY: prevents tall empty cards */
   }
-}
 
-.grid2 > * {
-  align-self: stretch;
-  justify-self: stretch;
-}
-
-.span2 {
-  grid-column: 1 / -1;
+  .span2 {
+    grid-column: 1 / -1;
+  }
 }
 
 /* 5) Card system */
@@ -145,13 +145,17 @@ header {
 
 /* Height helpers (for equal-height cards) */
 .cardFill {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  /* ✅ no height: 100% here */
 }
 
 .cardFooter {
-  margin-top: auto;
+  margin-top: auto; /* keeps the button at the bottom ONLY if there's extra space */
+}
+
+.noStretch {
+  align-self: start;
 }
 
 /* 6) Buttons */
@@ -458,3 +462,38 @@ b {
   }
 }
 /* ---------- End Auth page ---------- */
+
+/* Put this near your other layout helpers */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Section breakdown card */
+.sectionBreakdown {
+  margin-top: 12px;
+  display: grid;
+  gap: 16px;
+}
+
+.sectionGroupTitle {
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.sectionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.sectionListItem {
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-weight: 600;
+}

@@ -1,40 +1,32 @@
 // Stage 1: single-page dashboard facade.
 // This page server-fetches data for effeciency.
 
-import { fetchDashboardData } from "@/lib/api";
+// src/app/dashboard/page.tsx
+import { getDashboardData } from "@/lib/api";
+
 import { ScoreOverviewCard } from "@/components/ScoreOverviewCard";
 import { RecommendedActionCard } from "@/components/RecommendedActionCard";
 import { UpcomingMilestonesCard } from "@/components/UpcomingMilestonesCard";
-
-
-
-export const dynamic = "force-dynamic"; // avoid caching during development
+import { SectionBreakdownCard } from "@/components/SectionBreakdownCard";
 
 export default async function DashboardPage() {
-  // Server-side fetch (happens before HTML is returned to the browser)
-  const data = await fetchDashboardData();
-
+  const data = await getDashboardData();
 
   return (
     <main className="container">
+      <header>
+        <h1 className="pageTitle">AIMSAT Dashboard</h1>
+        <p className="subtitle">Welcome back, {data.student.firstName}.</p>
+      </header>
 
-          <header>
-                 <h1 className="pageTitle">AIMSAT Dashboard</h1>
-                    <p className="subTitle">
-                      Welcome back, {data.student.firstName}.
-                    </p>
-          </header>
-
-  <div className="grid2">
+      <div className="grid2">
   <ScoreOverviewCard scoreOverview={data.scoreOverview} />
   <RecommendedActionCard recommendedAction={data.recommendedAction} />
 
-  <div className="span2">
-    <UpcomingMilestonesCard upcomingMilestones={data.upcomingMilestones} />
-  </div>
+  <SectionBreakdownCard sectionBreakdown={data.sectionBreakdown} />
+  <UpcomingMilestonesCard upcomingMilestones={data.upcomingMilestones} />
 </div>
-
-
     </main>
   );
 }
+  

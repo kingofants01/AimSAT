@@ -122,7 +122,7 @@ export default function HomePage() {
         </form>
 
         <p className="muted authFootnote">
-          Stage 1: UI facade. In later stages, this page becomes a real session check + login.
+           Stage 1
         </p>
       </section>
     </main>

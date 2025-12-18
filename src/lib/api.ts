@@ -17,11 +17,11 @@ async function getBaseUrl() {
 }
 
 // fetch dashboard data from our API route, And use our fake database for now. later I will swap this to call Node backend.
-export async function fetchDashboardData(): Promise<DashboardData> {
+export async function getDashboardData(): Promise<DashboardData> {
   const baseUrl = await getBaseUrl();
 
   const res = await fetch(`${baseUrl}/api/dashboard`, {
-    cache: "no-store", // don't cache while building, just to see updates as I develop.
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -30,3 +30,4 @@ export async function fetchDashboardData(): Promise<DashboardData> {
 
   return (await res.json()) as DashboardData;
 }
+

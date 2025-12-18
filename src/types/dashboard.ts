@@ -1,32 +1,46 @@
-import type { StudentSummary } from "./student";
-import type { ISODateString, SatScoreSnapshot } from "./score";
+// src/types/dashboard.ts
 
-export interface DashboardData {
-  student: StudentSummary;
+export type DashboardStudent = {
+  firstName: string;
+};
 
-  scoreOverview: {
-    targetScore: number;
-    latest: SatScoreSnapshot;
-    previous?: SatScoreSnapshot | null;
-  };
+export type ScoreSnapshot = {
+  totalScore: number;
+  mathScore: number;
+  readingWritingScore: number;
+  dateISO: string;
+};
 
-  recommendedAction: {
-    title: string;
-    description: string;
-    estimatedTimeMinutes: number;
-    actionType: "practice" | "review" | "test";
-    priority: "high" | "medium" | "low";
-  };
+export type ScoreOverview = {
+  latest: ScoreSnapshot;
+  previous?: ScoreSnapshot;
+  targetScore: number;
+};
 
-  upcomingMilestones: {
-    nextSatDateISO?: ISODateString | null;
-    nextPracticeTestDateISO?: ISODateString | null;
-    daysUntilSat?: number | null;
-  };
-}
+export type RecommendedAction = {
+  title: string;
+  description: string;
+  actionType: string;
+  estimatedTimeMinutes: number;
+  priority: string;
+};
 
-// Re-export base types so existing imports can stay simple:
-export type { StudentSummary } from "./student";
-export type { StudyStage } from "./student";
-export type { ISODateString, SatScoreSnapshot } from "./score";
-export type { ScoreSource } from "./score";
+export type UpcomingMilestones = {
+  nextSatDateISO: string;
+  nextPracticeTestDateISO: string;
+};
+
+export type SectionBreakdown = {
+  math: string[]; // exactly what you asked: two math components
+  readingWriting: string[]; // same idea for R&W
+};
+
+export type DashboardData = {
+  student: DashboardStudent;
+  scoreOverview: ScoreOverview;
+  recommendedAction: RecommendedAction;
+  upcomingMilestones: UpcomingMilestones;
+
+  // NEW:
+  sectionBreakdown: SectionBreakdown;
+};
